@@ -22,21 +22,12 @@ export type State = {
     message?: string | null;
 }
 
-export async function createRaffle(prevState: State, formData: FormData) {
-    const validatedFields = CreateRaffle.safeParse({
+export async function createRaffle(formData: FormData) {
+    const { title, description, value } = CreateRaffle.parse({
         title: formData.get('title'),
         description: formData.get('description'),
         value: formData.get('value')
     });
-
-    if (!validatedFields.success) {
-        return {
-            errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Por favor, preencha todos os campos necessários.'
-        }
-    }
-
-    const { title, description, value } = validatedFields.data;
 
     console.log(title)
     console.log(description)
